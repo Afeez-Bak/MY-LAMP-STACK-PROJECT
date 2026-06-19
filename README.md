@@ -1,6 +1,6 @@
-# WEB STACK INPLMENTAION (LAMP STACK) IN AWS
+# WEB STACK INPLEMENTAION (LAMP STACK) IN AWS
 ## Introduction
-The LAMP stack is one of the most open-source popular web stack technology or web development tools which consists of Linux as the operating system, Apache as the web server, MySQL as the web database/storage and Php as the programming language. This documentation outline the step followed, configuratiions and the implementation of Lamp Stack with AWS.
+The LAMP stack is one of the most open-source popular web stack technology or web development tools which consists of Linux as the operating system, Apache as the web server, MySQL as the web database/storage and Php as the programming language. This documentation outlines the steps followed, configuratiions and the implementation of Lamp Stack with AWS.
 
 # STEP 0 - Prerequisites
  1. EC2 Instance of t3.micro type and Ubuntu 24.04 LTS (HVM) was lunched in the eu-north-1 region using the AWS console.
@@ -18,11 +18,16 @@ The LAMP stack is one of the most open-source popular web stack technology or we
 5. The private ssh key of the Lamp server that was created and downloaded was located on my local harddrive in the download folder, but permission was denied while trying to connect with server due to the folder accessibility properties which allow others to access the private key.
 ![ssh access](https://github.com/Afeez-Bak/MY-LAMP-STACK-PROJECT/blob/main/LAMP%20STACK/connecting%20to%20Ec2%20instance.png)
 6. created a new directory named (.ssh) on the home directory and moving my ssh private key to the newly created directory usin the the following command
-> mkdir -p ~/.ssh  
-> cp /mnt/users/user/Downloads/LAMPKEY.pem ~/.ssh/
+
+```bash
+mkdir -p ~/.ssh
+cp /mnt/users/user/Downloads/LAMPKEY.pem ~/.ssh/
+```
 ![creat new folder for ssh](https://github.com/Afeez-Bak/MY-LAMP-STACK-PROJECT/blob/main/LAMP%20STACK/creating%20.ssh%20folder%20for%20pem%20key.png)
-7. Successfully connect to my Ecs server using:
-> ssh -i LAMPKEY.pem ubuntu@13.51.170.234    
+7. Successfully connect to my Ecs server using: 
+```bash
+ssh -i LAMPKEY.pem ubuntu@13.51.170.234
+```    
 where LAMPKEY.pem = my ssh key, ubuntu = my ec2 username and 13.51.170.234 = my public ip address
 ![ssh successful](https://github.com/Afeez-Bak/MY-LAMP-STACK-PROJECT/blob/main/LAMP%20STACK/ssh%20into%20Ec2%20instatnce%20successful.png)
 
@@ -71,7 +76,7 @@ With the VirtualHost configuration, Apache will serve lampproject using /var/www
 
 5. Enable the new virtual host
 ![virtual host](https://github.com/Afeez-Bak/MY-LAMP-STACK-PROJECT/blob/main/LAMP%20STACK/a2ensite.png)
-6. While bashing apache2ctl configtest to check the configuration file for any syntax error, the response was that the virtualhost was not closed.
+6. While bashing apache2ctl configtest to check the configuration file for any syntax error, the response was that the virtual host was not closed.
 ![syntax error](https://github.com/Afeez-Bak/MY-LAMP-STACK-PROJECT/blob/main/LAMP%20STACK/syntaxx%20error.png)
 7. I discovered that the lampproject configuration was supposed to be **</VirtulHost>** instead of **<VirtualHost>** which was why it says the vitualHost was not closed.
 After edditing the configuration file using vim editor. the configuration file is now okay
@@ -91,8 +96,6 @@ After edditing the configuration file using vim editor. the configuration file i
 4. add a php code inside the file and refresh.
 ![php](https://github.com/Afeez-Bak/MY-LAMP-STACK-PROJECT/blob/main/LAMP%20STACK/php%20page.png)
 
-This page provides information about the server from the perspective of PHP. It is useful for debugging and to ensure the settings are being applied correctly.
-
-After checking the relevant information about the server through this page, the file was removed as it contains sensitive information about the PHP environment and the ubuntu server. It can always be recreated if the information is needed later.
+This project successfully demonstrated the deployment and configuration of a LAMP stack on an AWS EC2 Ubuntu server. Apache, MySQL, and PHP were installed and configured correctly, and a custom virtual host was created to serve a PHP-based website.
 
   
